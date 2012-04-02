@@ -1,0 +1,45 @@
+/*
+Lennart Martens - Adapted and extended from Joe Petterson
+*/
+
+
+html, body { border:0; margin:0; padding:0; }
+body { font:12px Arial, Helvetica, sans-serif; background: url(../img/bg-tile.png) repeat; color: #444}
+
+.wrapper { width:466px; margin:60px auto; }
+h1 {width: 757px; margin: 60px auto 5px; font-size: 24px; font-family: Georgia, Times New Roman, serif; font-weight: normal; font-style: bold;color: #777; }
+h2 {width: 757px; margin: 60px auto 5px; font-size: 20px; font-family: Georgia, Times New Roman, serif; font-weight: normal; font-style: normal;color: #777; }
+h3 {width: 757px; margin: 60px auto 5px; font-size: 16px; font-family: Georgia, Times New Roman, serif; font-weight: normal; font-style: italic; color: #777; }
+p,ul.regions {width: 757px; margin: 60px auto 5px; font-size: 16px; font-family: Georgia, Times New Roman, serif; font-weight: normal;color: #777; }
+
+
+
+table.regions
+{
+	font-family: "Georgia, Times New Roman, serif";
+	font-size: 14px;
+	
+	margin: auto;
+	width: 480px;
+	border-collapse: collapse;
+	text-align: left;
+}
+table.regions th
+{
+	font-size: 16px;
+	font-weight: normal;
+	color: #039;
+	padding: 10px 8px;
+	border-bottom: 2px solid #6678b1;
+}
+table.regions td
+{
+	border-bottom: 1px solid #ccc;
+	color: #669;
+	padding: 6px 8px;
+}
+table.regions tbody tr:hover td
+{
+	color: #009;
+}
+
