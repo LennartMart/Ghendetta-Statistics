@@ -77,7 +77,7 @@ $(document).ready(function(){
 		<nav class=\"dark\">
 			<ul class=\"clear\">
 				<li><a href=\"index.php\">Home</a></li>
-				<li><a href=\"site_stats.php\">Site statistics</a></li>
+				<li><a href=\"site_stat.php\">Site statistics</a></li>
 				<li><a href=\"clans.php\">Clans</a>
 					<ul>
 						<li><a href=\"hawks.php\">Hawks</a></li>
