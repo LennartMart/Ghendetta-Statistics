@@ -1,8 +1,8 @@
 <?php 
 include 'main.php';
-	$url_clans = 'http://www.ghendetta.be/api/clans.json';
+	$url_clans = 'cache/clans.json';
 	$content_clans = @file_get_contents($url_clans);
-	$url_regions = 'http://www.ghendetta.be/api/regions.json';
+	$url_regions = 'cache/regions.json';
 	$content_regions = @file_get_contents($url_regions);
 	
 	if($content_clans == false  || $content_regions == false) { 

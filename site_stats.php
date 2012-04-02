@@ -1,17 +1,17 @@
 <?php 
 include 'main.php';
 
-	$url_requests = 'http://www.ghendetta.be/api/requests.json';
+	$url_requests = 'cache/requests.json';
 	$content_requests = @file_get_contents($url_requests);
 	$json_requests = json_decode($content_requests,true);
 	$size_requests= sizeof($json_requests);
 	
-	$url_all = 'http://ghendetta.be/api/requests/all.json';
+	$url_all = 'cache/all.json';
 	$content_all = @file_get_contents($url_all);
 	$json_all = json_decode($content_all,true);
 	$size_all= sizeof($json_all);
 	
-	$url_stats = 'http://www.ghendetta.be/api/stats.json';
+	$url_stats = 'cache/stats.json';
 	$content_stats = @file_get_contents($url_stats);
 	$json_stats = json_decode($content_stats,true);
 	

@@ -1,12 +1,12 @@
 <?php 
 include 'main.php';
 	$team = "Snakes";
-	$url_clans = 'http://www.ghendetta.be/api/clans.json';
+	$url_clans = 'cache/clans.json';
 	$content_clans = @file_get_contents($url_clans);
 	$json_clans = json_decode($content_clans,true);
 	$size_clans = sizeof($json_clans);
 
-	$url_regions = 'http://www.ghendetta.be/api/regions.json';
+	$url_regions = 'cache/regions.json';
 	$content_regions = @file_get_contents($url_regions);
 	$json_regions = json_decode($content_regions,true);
 	$size_regions = 20;
@@ -21,7 +21,7 @@ include 'main.php';
 			}
 		}
 		echo "<h1>".$json_clans[3]["members"]." people are recruited by the ".$team." <IMG src=\"".$json_clans[3]["logo"]."\" alt=\"logo\"/></h1>";
-		echo "<h2>Regios that the ".$team." control: </h2>";
+		echo "<h2>They fought ".$json_clans[3]["battles"]." fights bravely and conquered: </h2>";
 		echo "<ul class=\"regions\">";
 			for($i=0; $i<sizeof($array_regions);$i++){			
 					echo "<li>".$array_regions[$i]."</li>";
