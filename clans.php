@@ -2,254 +2,260 @@
 include 'main.php';
 
 	$url_clans = 'http://www.ghendetta.be/api/clans.json';
-	$content_clans = file_get_contents($url_clans);
+	$content_clans = @file_get_contents($url_clans);
 	$json_clans = json_decode($content_clans,true);
 	$size_clans = sizeof($json_clans);
-echo "<h1>Current clans are: ";
-for ($i =0; $i <$size_clans-1; $i++){
-						echo $json_clans[$i]['name']; 
-						echo ",";
-					}
-echo $json_clans[$size_clans-1]['name']."</h1>";
-echo "<script>$(function () {
-    var chart;
+	
+	if ( $content_clans == false ){
+			echo "<h1>Loading data failed. Try again please.</h1>";
+	}
+	else{
+		echo "<h1>Current clans are: ";
+		for ($i =0; $i <$size_clans-1; $i++){
+								echo $json_clans[$i]['name']; 
+								echo ",";
+							}
+		echo $json_clans[$size_clans-1]['name']."</h1>";
+		echo "<script>$(function () {
+			var chart;
 
-    $(document).ready(function() {
+			$(document).ready(function() {
 
-        chart = new Highcharts.Chart({
+				chart = new Highcharts.Chart({
 
-            chart: {
+					chart: {
 
-                renderTo: 'container-clans',
+						renderTo: 'container-clans',
 
-                plotBackgroundColor: null,
+						plotBackgroundColor: null,
 
-                plotBorderWidth: null,
+						plotBorderWidth: null,
 
-                plotShadow: false,
-				
-				backgroundColor: \"#eeeff3\",
+						plotShadow: false,
+						
+						backgroundColor: \"#eeeff3\",
 
-            },
-			colors: [";for ($i =0; $i <$size_clans; $i++){
-						echo "'#".$json_clans[$i]['color'];
-						echo "',";
-					} echo "],
+					},
+					colors: [";for ($i =0; $i <$size_clans; $i++){
+								echo "'#".$json_clans[$i]['color'];
+								echo "',";
+							} echo "],
 
-            title: {
+					title: {
 
-                text: 'Members of each Clan'
+						text: 'Members of each Clan'
 
-            },
+					},
 
-            tooltip: {
+					tooltip: {
 
-                formatter: function() {
+						formatter: function() {
 
-                    return '<b>'+ this.point.name +'</b>: '+ this.y;
+							return '<b>'+ this.point.name +'</b>: '+ this.y;
 
-                }
+						}
 
-            },
+					},
 
-            plotOptions: {
+					plotOptions: {
 
-                pie: {
+						pie: {
 
-                    allowPointSelect: true,
+							allowPointSelect: true,
 
-                    cursor: 'pointer',
+							cursor: 'pointer',
 
-                    dataLabels: {
+							dataLabels: {
 
-                        enabled: false
+								enabled: false
 
-                    },
+							},
 
-                    showInLegend: true
+							showInLegend: true
 
-                }
+						}
 
-            },
+					},
 
-            series: [{
+					series: [{
 
-                type: 'pie',
+						type: 'pie',
 
-                name: 'Browser share',
+						name: 'Browser share',
 
-                data: [
-					{
+						data: [
+							{
 
-                        name: '";echo $json_clans[0]['name']; echo"',
+								name: '";echo $json_clans[0]['name']; echo"',
 
-                        y:"; echo $json_clans[0]['members']; echo",
+								y:"; echo $json_clans[0]['members']; echo",
 
-                        sliced: true,
+								sliced: true,
 
-                        selected: true
+								selected: true
 
-                    },
-                    ";
-					for ($i =1; $i <$size_clans; $i++){
-						echo "['".$json_clans[$i]['name']."',".$json_clans[$i]['members'];
-						echo "],";
-					}
-					echo "
+							},
+							";
+							for ($i =1; $i <$size_clans; $i++){
+								echo "['".$json_clans[$i]['name']."',".$json_clans[$i]['members'];
+								echo "],";
+							}
+							echo "
 
 
 
-                ]
+						]
 
-            }]
+					}]
 
-        });
+				});
 
-    });
+			});
 
-    
-})	</script>";
+			
+		})	</script>";
 
-	echo "<script>
-		$(function () {
-    var chart;
+			echo "<script>
+				$(function () {
+			var chart;
 
-    $(document).ready(function() {
+			$(document).ready(function() {
 
-        chart = new Highcharts.Chart({
+				chart = new Highcharts.Chart({
 
-            chart: {
+					chart: {
 
-                renderTo: 'container-points',
+						renderTo: 'container-points',
 
-                type: 'column',
+						type: 'column',
 
-                margin: [ 50, 50, 100, 80],
-				
-				backgroundColor: \"#eeeff3\",
+						margin: [ 50, 50, 100, 80],
+						
+						backgroundColor: \"#eeeff3\",
 
-            },
-            title: {
+					},
+					title: {
 
-                text: 'Points per clan'
+						text: 'Points per clan'
 
-            },
+					},
 
-            xAxis: {
+					xAxis: {
 
-                categories: [";
+						categories: [";
 
-					for ($i =0; $i <$size_clans; $i++){
-						echo "'".$json_clans[$i]['name']."',";
-					}
+							for ($i =0; $i <$size_clans; $i++){
+								echo "'".$json_clans[$i]['name']."',";
+							}
 
 
-                echo"],
+						echo"],
 
-                labels: {
+						labels: {
 
-                    rotation: -45,
+							rotation: -45,
 
-                    align: 'right',
+							align: 'right',
 
-                    style: {
+							style: {
 
-                        fontSize: '13px',
+								fontSize: '13px',
 
-                        fontFamily: 'Verdana, sans-serif'
+								fontFamily: 'Verdana, sans-serif'
 
-                    }
+							}
 
-                }
+						}
 
-            },
+					},
 
-            yAxis: {
+					yAxis: {
 
-                min: 0,
+						min: 0,
 
-                title: {
+						title: {
 
-                    text: 'Points'
+							text: 'Points'
 
-                }
+						}
 
-            },
+					},
 
-            legend: {
+					legend: {
 
-                enabled: false
+						enabled: false
 
-            },
+					},
 
-            tooltip: {
+					tooltip: {
 
-                formatter: function() {
+						formatter: function() {
 
-                    return '<b>'+ this.x +'</b><br/>'+
+							return '<b>'+ this.x +'</b><br/>'+
 
-                        'Points: '+this.y;
+								'Points: '+this.y;
 
-                }
+						}
 
-            },
+					},
 
-                series: [{
+						series: [{
 
-                name: 'Points',
+						name: 'Points',
 
-                data:[ 
-				";
+						data:[ 
+						";
 
-					for ($i =0; $i <$size_clans; $i++){
-						echo "{ y:".$json_clans[$i]['points'].","."color:'#".$json_clans[$i]['color']."'},";
-					}
-					echo "
-				],
+							for ($i =0; $i <$size_clans; $i++){
+								echo "{ y:".$json_clans[$i]['points'].","."color:'#".$json_clans[$i]['color']."'},";
+							}
+							echo "
+						],
 
-                dataLabels: {
+						dataLabels: {
 
-                    enabled: true,
+							enabled: true,
 
-                    rotation: -90,
+							rotation: -90,
 
-                    color: '#FFFFFF',
+							color: '#FFFFFF',
 
-                    align: 'right',
+							align: 'right',
 
-                    x: -3,
+							x: -3,
 
-                    y: 10,
+							y: 10,
 
-                    formatter: function() {
+							formatter: function() {
 
-                        return this.y;
+								return this.y;
 
-                    },
+							},
 
-                    style: {
+							style: {
 
-                        fontSize: '13px',
+								fontSize: '13px',
 
-                        fontFamily: 'Verdana, sans-serif'
+								fontFamily: 'Verdana, sans-serif'
 
-                    }
+							}
 
-                }
+						}
 
-            }]
+					}]
 
-        });
+				});
 
-    });
+			});
 
-    
-});
-</script>";
+			
+		});
+		</script>";
 
-	echo "<div id='container-clans' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
-	echo "<h1>Points : strength of each clan</h1>";
-	echo "<div id='container-points' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
+			echo "<div id='container-clans' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
+			echo "<h1>Points : strength of each clan</h1>";
+			echo "<div id='container-points' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
+	}
 	echo "</body></html>";
 	
 	

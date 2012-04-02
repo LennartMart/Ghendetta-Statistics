@@ -1,12 +1,18 @@
 <?php 
 include 'main.php';
 	$url_clans = 'http://www.ghendetta.be/api/clans.json';
-	$content_clans = file_get_contents($url_clans);
+	$content_clans = @file_get_contents($url_clans);
+	$url_regions = 'http://www.ghendetta.be/api/regions.json';
+	$content_regions = @file_get_contents($url_regions);
+	
+	if($content_clans == false  || $content_regions == false) { 
+		echo "<h1>Loading data failed. Try again please.</h1>";
+	}
+	else {
 	$json_clans = json_decode($content_clans,true);
 	$size_clans = sizeof($json_clans);
 
-	$url_regions = 'http://www.ghendetta.be/api/regions.json';
-	$content_regions = file_get_contents($url_regions);
+
 	$json_regions = json_decode($content_regions,true);
 	$size_regions = 20;
 	$array_clans;
@@ -172,7 +178,7 @@ echo "<p><table class=\"regions\">
 	}
 echo "</table>";
 echo "<div id='container-regions' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
-
+}
 echo "</body></html>";
 
 ?>
