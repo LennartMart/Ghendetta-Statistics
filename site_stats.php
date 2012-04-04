@@ -11,15 +11,12 @@ include 'main.php';
 	$json_all = json_decode($content_all,true);
 	$size_all= sizeof($json_all);
 	
-	$url_stats = 'cache/stats.json';
-	$content_stats = @file_get_contents($url_stats);
-	$json_stats = json_decode($content_stats,true);
 	
-	if ( $content_requests == false || $content_all == false || $content_stats == false){
+	if ( $content_requests == false || $content_all == false){
 			echo "<h1>Loading data failed. Try again please.</h1>";
 	}
 	else {
-		echo "<h1>".$json_stats['users']." users have fought ".$json_stats['battles']." battles and made ".$json_stats['requests']." requests in ".$size_all." days</h1>";
+		
 		#Request - Container
 			echo "<script>var chart;
 			$(document).ready(function() {
