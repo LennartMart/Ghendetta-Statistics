@@ -160,6 +160,13 @@ include 'main.php';
     
 });
 </script>";
+echo "<script>
+	function doNav(theUrl)
+	{
+		document.location.href = theUrl;
+	}
+	</script>
+	";
 echo "<h1> Overview of all regions</h1>";
 echo "<p><table class=\"regions\"> 
  <thead>
@@ -170,7 +177,7 @@ echo "<p><table class=\"regions\">
     </tr>
   </thead>";
   foreach ($json_regions as $regio){
-		echo "<tr>";
+		echo "<tr onclick=\"doNav('region.php?id=".$regio["regionid"]."')\">";
 		echo "<td>".$regio["name"]."</td>";
 		echo "<td>".$regio["leader"]["name"]."</td>";
 		echo "<td>".$regio["leader"]["points"]."</td>";

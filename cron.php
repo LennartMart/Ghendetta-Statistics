@@ -22,11 +22,19 @@
 	$url_stats = 'http://www.ghendetta.be/api/stats.json';
 	$content_stats = check_content($url_stats);
 	
+	$regions = array();
+	for ($reg = 1; $reg <=20;$reg++){
+		$url_regio = 'http://www.ghendetta.be/api/regions/'.$reg.'.json';
+		$regions[$reg] = check_content($url_regio);
+	}
 	
 	if ($i < 20){
 		file_put_contents("cache/clans.json",$content_clans);
 		file_put_contents("cache/regions.json",$content_regions);
 		file_put_contents("cache/stats.json",$content_stats);
+		for ($reg = 1; $reg <=20;$reg++){
+			file_put_contents("cache/regio/".$reg.".json",$regions[$reg]);
+		}
 		echo "Job done...";
 	}
 	else {

@@ -8,7 +8,8 @@ echo"
 	<br/><br/>
 	<p>Questions and suggestions? len dot martens at gmail dot com !<p>	
 	<br/><br/><br/>	
-	<p><i>Update 02/04/2012: Boosted  the site's performance. Everything should run smoothly now!</i></p>
+	<p><i>Update 02/04/2012: Boosted  the site's performance. Everything should run smoothly now!<br/>
+	Update 07/04/2012: Added detail page for every region!</i></p>
 	</body>
 </html>";
 ?>

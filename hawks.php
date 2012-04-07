@@ -22,7 +22,7 @@ include 'main.php';
 		}
 
 
-		echo "<h1>".$json_clans[0]["members"]." people are recruited by the ".$team." <IMG src=\"".$json_clans[0]["logo"]."\" alt=\"logo\"/></h1>";
+		echo "<h1>".$json_clans[0]["members"]." people are recruited by the ".$team." <IMG src=\"".$json_clans[0]["shield"]."\" alt=\"logo\"/></h1>";
 		echo "<h2>They fought ".$json_clans[0]["battles"]." fights bravely and conquered: </h2>";
 		echo "<ul class=\"regions\">";
 			for($i=0; $i<sizeof($array_regions);$i++){			

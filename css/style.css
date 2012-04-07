@@ -10,7 +10,7 @@ body { font:12px Arial, Helvetica, sans-serif; background: url(../img/bg-tile.pn
 h1 {width: 757px; margin: 60px auto 5px; font-size: 24px; font-family: Georgia, Times New Roman, serif; font-weight: normal; font-style: bold;color: #777; }
 h2 {width: 757px; margin: 60px auto 5px; font-size: 20px; font-family: Georgia, Times New Roman, serif; font-weight: normal; font-style: normal;color: #777; }
 h3 {width: 757px; margin: 60px auto 5px; font-size: 16px; font-family: Georgia, Times New Roman, serif; font-weight: normal; font-style: italic; color: #777; }
-p,ul.regions {width: 757px; margin: 60px auto 5px; font-size: 16px; font-family: Georgia, Times New Roman, serif; font-weight: normal;color: #777; }
+p,ul.regions,ol.leaders {width: 757px; margin: 60px auto 5px; font-size: 16px; font-family: Georgia, Times New Roman, serif; font-weight: normal;color: #777; }
 
 
 
@@ -41,5 +41,6 @@ table.regions td
 table.regions tbody tr:hover td
 {
 	color: #009;
+	cursor: pointer;
 }
 

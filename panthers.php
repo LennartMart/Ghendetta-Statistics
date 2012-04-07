@@ -21,7 +21,7 @@ include 'main.php';
 			}
 		}
 
-		echo "<h1>".$json_clans[2]["members"]." people are recruited by the ".$team." <IMG src=\"".$json_clans[2]["logo"]."\" alt=\"logo\"/></h1>";
+		echo "<h1>".$json_clans[2]["members"]." people are recruited by the ".$team." <IMG src=\"".$json_clans[2]["shield"]."\" alt=\"logo\"/></h1>";
 		echo "<h2>They fought ".$json_clans[2]["battles"]." fights bravely and conquered: </h2>";
 
 		echo "<ul class=\"regions\">";

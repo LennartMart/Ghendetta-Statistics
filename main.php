@@ -69,7 +69,7 @@ $(document).ready(function(){
 
 <body>
 
-	<h3>Some statistics about Ghendetta</h3>
+	<h3>Some statistics of Ghendetta</h3>
 
 	<div class=\"wrapper\">
 	

@@ -20,7 +20,7 @@ include 'main.php';
 				$array_regions[]= $json_regions[$i]["name"];
 			}
 		}
-		echo "<h1>".$json_clans[3]["members"]." people are recruited by the ".$team." <IMG src=\"".$json_clans[3]["logo"]."\" alt=\"logo\"/></h1>";
+		echo "<h1>".$json_clans[3]["members"]." people are recruited by the ".$team." <IMG src=\"".$json_clans[3]["shield"]."\" alt=\"logo\"/></h1>";
 		echo "<h2>They fought ".$json_clans[3]["battles"]." fights bravely and conquered: </h2>";
 		echo "<ul class=\"regions\">";
 			for($i=0; $i<sizeof($array_regions);$i++){			
