@@ -15,16 +15,16 @@ include 'main.php';
 
 	$json_regions = json_decode($content_regions,true);
 	$size_regions = 20;
-	$array_clans;
-	$array_colors;
-	for($i=0; $i<$size_regions;$i++){			
-			$array_clans[$json_regions[$i]["leader"]["name"]] +=1;
-	}
-	foreach ( $json_clans as $clan){
-			$array_colors[$clan["name"]] = $clan["color"];
-	}
-	
+	$array_clans = array();
+	$leader_region = array();
+		for ($i=0;$i<20;$i++){
+			$leader_region[$i+1] = $json_regions[$i]["leader"];
+			}
+	// Calculate amount of regions for each clan
+	for ($i=0;$i<20;$i++){
 
+		$array_clans[$json_clans[$leader_region[$i+1] -1]["name"]] +=1;
+	}
 	echo "<script>
 		$(function () {
     var chart;
@@ -115,7 +115,13 @@ include 'main.php';
                 data:[ 
 				";
 					foreach ( $array_clans as $key => $value ) {
-						echo "{ y:".$value.", color:'#".$array_colors[$key]."'},";
+						echo "{ y:".$value.",";
+						foreach ($json_clans as $clan){
+							if($clan["name"] == $key){
+								echo "color:'#".$clan["color"]."'},";
+								break;
+							}
+						}
 					}
 
 					echo "
@@ -168,22 +174,26 @@ echo "<script>
 	</script>
 	";
 echo "<h1> Overview of all regions</h1>";
+
 echo "<p><table class=\"regions\"> 
  <thead>
     <tr>
       <th>Regio</th>
       <th>Clan</th>
-	  <th>Points</th>
+	  <th>%</th>
     </tr>
   </thead>";
-  foreach ($json_regions as $regio){
-		echo "<tr onclick=\"doNav('region.php?id=".$regio["regionid"]."')\">";
-		echo "<td>".$regio["name"]."</td>";
-		echo "<td>".$regio["leader"]["name"]."</td>";
-		echo "<td>".$regio["leader"]["points"]."</td>";
+  for ($i=0;$i<20;$i++){
+		$region_id = $i+1;
+		echo "<tr onclick=\"doNav('region.php?id=".$region_id."')\">";
+		echo "<td>".$json_regions[$i]["name"]."</td>";
+		
+		echo "<td>".$json_clans[$leader_region[$i+1] -1]["name"]."</td>";
+		echo "<td>".$json_regions[$i]["clans"][$leader_region[$i+1]]["possession"]."</td>";
 		echo "</tr>";
 	}
 echo "</table>";
+
 echo "<div id='container-regions' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
 }
 echo "</body></html>";

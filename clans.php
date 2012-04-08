@@ -114,7 +114,104 @@ include 'main.php';
 
 			
 		})	</script>";
+echo "<script>$(function () {
+			var chart;
 
+			$(document).ready(function() {
+
+				chart = new Highcharts.Chart({
+
+					chart: {
+
+						renderTo: 'container-battles',
+
+						plotBackgroundColor: null,
+
+						plotBorderWidth: null,
+
+						plotShadow: false,
+						
+						backgroundColor: \"#eeeff3\",
+
+					},
+					colors: [";for ($i =0; $i <$size_clans; $i++){
+								echo "'#".$json_clans[$i]['color'];
+								echo "',";
+							} echo "],
+
+					title: {
+
+						text: 'Battles / Clan'
+
+					},
+
+					tooltip: {
+
+						formatter: function() {
+
+							return '<b>'+ this.point.name +'</b>: '+ this.y + ' battles';
+
+						}
+
+					},
+
+					plotOptions: {
+
+						pie: {
+
+							allowPointSelect: true,
+
+							cursor: 'pointer',
+
+							dataLabels: {
+
+								enabled: false
+
+							},
+
+							showInLegend: true
+
+						}
+
+					},
+
+					series: [{
+
+						type: 'pie',
+
+						name: 'Browser share',
+
+						data: [
+							{
+
+								name: '";echo $json_clans[0]['name']; echo"',
+
+								y:"; echo $json_clans[0]['battles']; echo",
+
+								sliced: true,
+
+								selected: true
+
+							},
+							";
+							for ($i =1; $i <$size_clans; $i++){
+								echo "['".$json_clans[$i]['name']."',".$json_clans[$i]['battles'];
+								echo "],";
+							}
+							echo "
+
+
+
+						]
+
+					}]
+
+				});
+
+			});
+
+			
+		})	</script>";
 			echo "<script>
 				$(function () {
 			var chart;
@@ -253,6 +350,7 @@ include 'main.php';
 		</script>";
 
 			echo "<div id='container-clans' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
+			echo "<div id='container-battles' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
 			echo "<h1>Points : strength of each clan</h1>";
 			echo "<div id='container-points' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
 	}

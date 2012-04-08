@@ -1,7 +1,6 @@
 <?php 
 include 'main.php';
-	$url_regions = 'cache/regions.json';
-	$content_regions = @file_get_contents($url_regions);
+	
 	$region_id = (int)$_GET["id"];
 	if(is_int($region_id) == false){
 		echo "<h1>Wrong ID</h1>";
@@ -12,12 +11,19 @@ include 'main.php';
 	}
 	else{
 		$url_regio = "cache/regio/".$region_id.".json";
-		$content_regio = @file_get_contents($url_regio);
-		$json_regions = json_decode($content_regions,true);
+		$content_regio = @file_get_contents($url_regio);	
 		$json_regio = json_decode($content_regio,true);
+		$url_clans = 'cache/clans.json';
+		$content_clans = @file_get_contents($url_clans);
+		$json_clans = json_decode($content_clans,true);
+		//sorting the clans on posession
+		$sorted_clans = array();
+		for ($j=0;$j<sizeof($json_regio["clans"]);$j++){
+			$sorted_clans[$j+1] = $json_regio["clans"][$j+1]["possession"];
 		
-		echo "<script>
-				$(function () {
+		}
+		arsort($sorted_clans);
+		echo "<script>$(function () {
 			var chart;
 
 			$(document).ready(function() {
@@ -26,64 +32,25 @@ include 'main.php';
 
 					chart: {
 
-						renderTo: 'container-battles',
+						renderTo: 'container-clans',
 
-						type: 'column',
+						plotBackgroundColor: null,
 
-						margin: [ 50, 50, 100, 80],
+						plotBorderWidth: null,
+
+						plotShadow: false,
 						
 						backgroundColor: \"#eeeff3\",
 
 					},
+					colors: [";foreach ($sorted_clans as $key => $value){
+								echo "'#".$json_regio["clans"][$key]['color'];
+								echo "',";
+							} echo "],
+
 					title: {
 
-						text: 'Battles of each Clan'
-
-					},
-
-					xAxis: {
-
-						categories: [";
-							for($j=0;$j<sizeof($json_regio);$j++) {
-								echo "'".$json_regio[$j]['name']."',";
-							}
-
-
-						echo"],
-
-						labels: {
-
-							rotation: -45,
-
-							align: 'right',
-
-							style: {
-
-								fontSize: '13px',
-
-								fontFamily: 'Verdana, sans-serif'
-
-							}
-
-						}
-
-					},
-
-					yAxis: {
-
-						min: 0,
-
-						title: {
-
-							text: 'Battles'
-
-						}
-
-					},
-
-					legend: {
-
-						enabled: false
+						text: 'Strength of each clan'
 
 					},
 
@@ -91,56 +58,67 @@ include 'main.php';
 
 						formatter: function() {
 
-							return '<b>'+ this.x +'</b><br/>'+
-
-								'Battles: '+ this.y;
+							return '<b>'+ this.point.name +'</b>: '+ this.y + '%';
 
 						}
 
 					},
 
-						series: [{
+					plotOptions: {
 
-						name: 'Battles',
+						pie: {
 
-						data:[ 
-						";
-							for( $j=0;$j<sizeof($json_regio);$j++) {
-								echo "{ y:".$json_regio[$j]['battles'].", color:'#".$json_regio[$j]["color"]."'},";
-							}
+							allowPointSelect: true,
 
-							echo "
-						],
+							cursor: 'pointer',
 
-						dataLabels: {
+							dataLabels: {
 
-							enabled: true,
-
-							rotation: -90,
-
-							color: '#FFFFFF',
-
-							align: 'right',
-
-							x: -3,
-
-							y: 10,
-
-							formatter: function() {
-
-								return this.y;
+								enabled: false
 
 							},
 
-							style: {
-
-								fontSize: '13px',
-
-								fontFamily: 'Verdana, sans-serif'
-
-							}
+							showInLegend: true
 
 						}
+
+					},
+
+					series: [{
+
+						type: 'pie',
+
+						name: 'Browser share',
+
+						data: [
+							{
+
+								name: '";
+								reset($sorted_clans);
+								$first_id = key($sorted_clans);
+								echo $json_regio["clans"][$first_id]['name']; echo"',
+
+								y:"; echo $json_regio["clans"][$first_id]["possession"]; echo",
+
+								sliced: true,
+
+								selected: true
+
+							},
+							";
+							$skip_first = 0;
+							foreach ($sorted_clans as $key => $value){
+								if($skip_first != 0){
+									echo "['".$json_regio["clans"][$key]['name']."',".$json_regio["clans"][$key]["possession"];
+									echo "],";
+								}
+								$skip_first +=1;
+							}
+							echo "
+
+
+
+						]
 
 					}]
 
@@ -149,27 +127,19 @@ include 'main.php';
 			});
 
 			
-		});
-		</script>";
-		//Getting name of region
-		$i=0;
-		$found = false;
-		$region_name;
-		while($i<sizeof($json_regions) && $found == false){
-			if($json_regions[$i]["regionid"] == $region_id){
-				$region_name = $json_regions[$i]["name"];
-				$found = true;
-			}
-			$i +=1;
-		}
-		echo '<h1>The clan that rules '.$region_name.' is the '.$json_regio[0]["name"].' !</h1>';
+		})	</script>";
+		
+		reset($sorted_clans);
+		echo '<h1>The clan that rules '.$json_regio["name"].' is the '.$json_clans[$json_regio["leader"]-1]["name"].' !</h1>';
+		echo "<div id='container-clans' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
 		echo '<p>
 			  <ol class=\'leaders\'>';
-		for($j=0;$j<sizeof($json_regio);$j++){
-			echo "<li><IMG src=\"".$json_regio[$j]["shield"]."\" alt=\"logo\"/>: ".$json_regio[$j]["points"]." points </li>";
+		foreach ($sorted_clans as $key => $value){
+			echo "<li><IMG src=\"".$json_regio["clans"][$key]["shield"]."\" alt=\"shield\"/>: ".$value." % </li>";
 		}
 		echo "</ol></p>";
-		echo "<div id='container-battles' style='min-width: 400px; height: 400px; margin: 0 auto'></div>";
+		
+		
 	}
 	echo "</body></html>";
 	
