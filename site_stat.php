@@ -1,7 +1,7 @@
 <?php 
 include 'main.php';
 
-	$url_stats = 'cache/stats.json';
+	$url_stats = 'http://ghendetta.be/api/stats.json';
 	$content_stats= @file_get_contents($url_stats);
 	$json_stats = json_decode($content_stats,true);
 	$size_stats = sizeof($json_stats);

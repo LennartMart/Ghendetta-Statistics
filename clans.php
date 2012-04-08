@@ -1,7 +1,7 @@
 <?php 
 include 'main.php';
 
-	$url_clans = 'cache/clans.json';
+	$url_clans = 'http://ghendetta.be/api/clans.json';
 	$content_clans = @file_get_contents($url_clans);
 	$json_clans = json_decode($content_clans,true);
 	$size_clans = sizeof($json_clans);

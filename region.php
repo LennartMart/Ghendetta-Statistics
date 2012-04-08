@@ -10,10 +10,10 @@ include 'main.php';
 
 	}
 	else{
-		$url_regio = "cache/regio/".$region_id.".json";
+		$url_regio = "http://ghendetta.be/api/regions/".$region_id.".json";
 		$content_regio = @file_get_contents($url_regio);	
 		$json_regio = json_decode($content_regio,true);
-		$url_clans = 'cache/clans.json';
+		$url_clans = 'http://ghendetta.be/api/clans.json';
 		$content_clans = @file_get_contents($url_clans);
 		$json_clans = json_decode($content_clans,true);
 		//sorting the clans on posession
